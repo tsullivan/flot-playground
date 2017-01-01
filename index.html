@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="./flot/examples/shared/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="./js/lib/flot/examples/shared/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
     <link href="./chart.css" rel="stylesheet" type="text/css">
   </head>
   <body>
@@ -18,17 +18,29 @@
       </div>
     </div>
 
-
-    <script language="javascript" type="text/javascript" src="./flot/jquery.js"></script>
-    <script language="javascript" type="text/javascript" src="./flot/jquery.flot.js"></script>
-    <script language="javascript" type="text/javascript" src="./flot/jquery.flot.time.js"></script>
-    <script language="javascript" type="text/javascript" src="./flot/jquery.flot.crosshair.js"></script>
-    <script language="javascript" type="text/javascript" src="./flot/jquery.flot.selection.js"></script>
-    <script language="javascript" type="text/javascript" src="./flot/jquery.flot.resize.js"></script>
-    <script language="javascript" type="text/javascript" src="./flot/examples/shared/jquery-ui/jquery-ui.min.js"></script>
-    <script language="javascript" type="text/javascript" src="./options.js"></script>
-    <script language="javascript" type="text/javascript" src="./data.js"></script>
-    <script language="javascript" type="text/javascript" src="./chart.js"></script>
+    <script src="./js/lib/require.js"></script>
+    <script>
+      requirejs.config({
+        baseUrl: 'js',
+        shim: {
+          'jquery': { exports: '$' },
+          'jquery.flot': { deps: ['jquery'], exports: '$.plot' },
+          'jquery.flot.time': { deps: ['jquery.flot'] },
+          'jquery.flot.crosshair': { deps: ['jquery.flot'] },
+          'jquery.flot.selection': { deps: ['jquery.flot'] },
+          'jquery.flot.resize': { deps: ['jquery.flot'] }
+        },
+        paths: {
+          'jquery': 'lib/flot/jquery',
+          'jquery.flot': 'lib/flot/jquery.flot',
+          'jquery.flot.time': 'lib/flot/jquery.flot.time',
+          'jquery.flot.crosshair': 'lib/flot/jquery.flot.crosshair',
+          'jquery.flot.selection': 'lib/flot/jquery.flot.selection',
+          'jquery.flot.resize': 'lib/flot/jquery.flot.resize'
+        }
+      });
+    </script>
+    <script src="./js/chart.js"></script>
 
   </body>
 </html>
