@@ -14,8 +14,8 @@ window.OPTIONS = {
     color: CHART_LINE_COLOR,
     font: {
       color: CHART_TEXT_COLOR
-    }
-    // tickFormatter: options.tickFormatter
+    },
+    min: 0
   },
   series: {
     points: {
