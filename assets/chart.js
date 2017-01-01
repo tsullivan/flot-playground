@@ -1,5 +1,5 @@
 function negateSeries(series) {
-  return series.map(point => [ point[0], -point[1] ]);
+  return series.map(point => [ point[0], -point[1] * .2 ]);
 }
 
 let _crazeFactor = 0;
