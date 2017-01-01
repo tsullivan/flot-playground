@@ -1,36 +1,22 @@
-$(() => {
-  const options = {
-    legend: {
-      show: false
-    },
-    series: {
-      points: {
-        show: true,
-        radius: 1
-      },
-      lines: {
-        show: true,
-        lineWidth: 2
-      },
-      shadowSize: 0
-    },
-    grid: {
-      margin: 0,
-      borderWidth: 1,
-      hoverable: true
-    },
-    yaxis: {
-      min: undefined
-    }
-  };
+function negateSeries(series) {
+  return series.map(point => [ point[0], -point[1] ]);
+}
 
-  // const data = [ [55, 0], [56, 0], [57, 0], [58, 0], [59, 0], [60, 0] ];
-  const data = [ [55, 0], [56, -0.5], [57, -1.1], [58, -0.2], [59, 0], [60, 1] ];
+let _crazeFactor = 0;
+function craze(seed) {
+  seed = seed || 100000;
+  return seed * _crazeFactor++;
+}
 
+function bumpSeries(series) {
+  return series.map(point => [ point[0], craze(point[1]) ]);
+}
+
+$(function start() {
   // find the min in the data and set y-axis min to it
-  const yaxisMin = data.reduce((prev, curr) => Math.min(curr[1], prev), 0);
-  options.yaxis.min = yaxisMin;
-
-  const plot = $.plot('#placeholder', [ data ], options);
+  //const yaxisMin = DATA.reduce((prev, curr) => Math.min(curr[1], prev), 0);
+  //OPTIONS.yaxis.min = yaxisMin;
+  DATA[0] = negateSeries(DATA[0]);
+  DATA[1] = bumpSeries(DATA[1]);
+  const plot = $.plot('#placeholder', DATA, OPTIONS);
 });
-

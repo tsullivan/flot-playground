@@ -1,10 +1,7 @@
 const CHART_LINE_COLOR = '#d2d2d2';
 const CHART_TEXT_COLOR = '#9c9c9c';
 window.OPTIONS = {
-  legend: {
-    show: true,
-    container: $('#legend')
-  },
+  legend: { show: false },
   xaxis: {
     color: CHART_LINE_COLOR,
     timezone: 'browser',
