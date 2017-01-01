@@ -1,3 +1,4 @@
+const MARGIN = 20;
 function negateSeries(series) {
   return series.map(point => [ point[0], -point[1] * .2 ]);
 }
@@ -23,5 +24,23 @@ $(function start() {
   }, 0);
   OPTIONS.yaxis.min = yaxisMin;
 
-  const plot = $.plot('#placeholder', DATA, OPTIONS);
+  const $mainContainer = $('.flexbox-main');
+  const $demoContainer = $('.demo-container');
+  $demoContainer.resizable({
+    handles: 'e, s',
+    maxHeight: $mainContainer.height() - MARGIN,
+    maxWidth:  $mainContainer.width() - MARGIN
+  });
+  $demoContainer.resize(() => {
+    const $this = $(this);
+    console.log(`Placeholder is now ${$this.width()}x${$this.height()} px`);
+  });
+
+  $demoContainer.height($mainContainer.height() - MARGIN);
+  $demoContainer.width($mainContainer.width() - MARGIN);
+
+  const $placeholder = $('#placeholder');
+  const plot = $.plot($placeholder, DATA, OPTIONS);
+
+  console.log(plot.getOptions());
 });
