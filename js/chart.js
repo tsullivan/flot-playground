@@ -1,4 +1,13 @@
-require(['jquery', 'data', 'options', 'jquery.flot', 'jquery.flot.time'], ($, data, options) => {
+const decorators = [
+  'jquery.flot',
+  'jquery.flot.time',
+  'jquery.flot.crosshair',
+  'jquery.flot.selection',
+  'jquery.flot.resize',
+  'jquery-ui'
+];
+
+require(['jquery', 'data', 'options', ...decorators], ($, data, options) => {
   const MARGIN = 20;
   $(function start() {
     // find the min in the data and set y-axis min to it
@@ -11,7 +20,6 @@ require(['jquery', 'data', 'options', 'jquery.flot', 'jquery.flot.time'], ($, da
     const $mainContainer = $('.flexbox-main');
     const $demoContainer = $('.demo-container');
 
-    /*
     $demoContainer.resizable({
       handles: 'e, s',
       maxHeight: $mainContainer.height() - MARGIN,
@@ -21,10 +29,9 @@ require(['jquery', 'data', 'options', 'jquery.flot', 'jquery.flot.time'], ($, da
       const $this = $(this);
       console.log(`Placeholder is now ${$this.width()}x${$this.height()} px`);
     });
-     */
 
-    $demoContainer.height($mainContainer.height() - MARGIN);
-    $demoContainer.width($mainContainer.width() - MARGIN);
+    $demoContainer.height(($mainContainer.height() * 0.8) - MARGIN);
+    $demoContainer.width(($mainContainer.width() * 0.8) - MARGIN);
 
     const $placeholder = $('#placeholder');
     const plot = $.plot($placeholder, data, options);
