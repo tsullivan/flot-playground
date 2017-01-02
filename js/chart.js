@@ -11,6 +11,27 @@ require(
   [ 'jquery', 'data', 'options', 'find_min', 'size_chart', 'log', ...DECORATORS ],
   ($, data, options, findMin, sizeChart, log) => {
 
+  const $setYAxisMin = $('#set-yaxis-min');
+  let plot;
+
+  function drawChart() {
+    if (plot) {
+      plot.destroy();
+    }
+
+    let yaxisMin;
+    if ($setYAxisMin.is(':checked')) {
+      yaxisMin = findMin(data);
+    }
+    options.yaxis.min = yaxisMin;
+    log('yaxisMin', yaxisMin);
+
+    const $placeholder = $('#placeholder');
+    plot = $.plot($placeholder, data, options);
+
+    log('options', JSON.stringify(plot.getOptions()));
+  }
+
   $(function start() {
     const $demoContainer = $('.demo-container');
     $demoContainer.resize(() => {
@@ -27,12 +48,9 @@ require(
     });
     // $demoContainer.resizable({ handles: 'e, s' });
 
-    const yaxisMin = findMin(data);
-    options.yaxis.min = yaxisMin;
-    const $placeholder = $('#placeholder');
-    const plot = $.plot($placeholder, data, options);
+    $setYAxisMin.prop('checked', true);
+    $setYAxisMin.change(drawChart);
 
-    log('options', JSON.stringify(plot.getOptions()));
-    log('yaxisMin', yaxisMin);
+    drawChart();
   });
 });
