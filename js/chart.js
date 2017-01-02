@@ -7,7 +7,7 @@ const decorators = [
   'jquery-ui'
 ];
 
-require(['jquery', 'data', 'options', ...decorators], ($, data, options) => {
+require(['jquery', 'data', 'options', 'log', ...decorators], ($, data, options, log) => {
   const MARGIN = 20;
   $(function start() {
     // find the min in the data and set y-axis min to it
@@ -26,8 +26,7 @@ require(['jquery', 'data', 'options', ...decorators], ($, data, options) => {
       maxWidth:  $mainContainer.width() - MARGIN
     });
     $demoContainer.resize(() => {
-      const $this = $(this);
-      console.log(`Placeholder is now ${$this.width()}x${$this.height()} px`);
+      log('resize', `Placeholder is now ${$demoContainer.width()}x${$demoContainer.height()} px`);
     });
 
     $demoContainer.height(($mainContainer.height() * 0.8) - MARGIN);
@@ -36,6 +35,6 @@ require(['jquery', 'data', 'options', ...decorators], ($, data, options) => {
     const $placeholder = $('#placeholder');
     const plot = $.plot($placeholder, data, options);
 
-    console.log(plot.getOptions());
+    log('options', JSON.stringify(plot.getOptions()));
   });
 });
