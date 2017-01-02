@@ -1,4 +1,4 @@
-const decorators = [
+const DECORATORS = [
   'jquery.flot',
   'jquery.flot.time',
   'jquery.flot.crosshair',
@@ -7,24 +7,25 @@ const decorators = [
   'jquery-ui'
 ];
 
-require(['jquery', 'data', 'options', 'log', ...decorators], ($, data, options, log) => {
-  const MARGIN = 20;
+require(
+  [ 'jquery', 'data', 'options', 'find_min', 'size_chart', 'log', ...DECORATORS ],
+  ($, data, options, findMin, sizeChart, log) => {
+
   $(function start() {
-
-    const $mainContainer = $('.flexbox-main');
     const $demoContainer = $('.demo-container');
-
-    $demoContainer.resizable({
-      handles: 'e, s',
-      maxHeight: $mainContainer.height() - MARGIN,
-      maxWidth:  $mainContainer.width() - MARGIN
-    });
     $demoContainer.resize(() => {
       log('resize', `Placeholder is now ${$demoContainer.width()}x${$demoContainer.height()} px`);
     });
 
-    $demoContainer.height(($mainContainer.height() * 0.8) - MARGIN);
-    $demoContainer.width(($mainContainer.width() * 0.8) - MARGIN);
+    const $mainContainer = $('.flexbox-main');
+    sizeChart($mainContainer, $demoContainer);
+    $(window).on('resize', (event) => {
+      const { target } = event;
+      if (target === window) {
+        sizeChart($mainContainer, $demoContainer);
+      }
+    });
+    // $demoContainer.resizable({ handles: 'e, s' });
 
     const yaxisMin = findMin(data);
     options.yaxis.min = yaxisMin;
